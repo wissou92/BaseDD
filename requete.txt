@@ -1,0 +1,24 @@
+R1:
+	SELECT nom, prenom	
+	FROM malade 
+	WHERE mutuelle='MAAF';
+
+R2:
+	SELECT E.prenom, E.nom 
+	FROM employe E, infirmier I 
+	WHERE E.numero = I.numero  AND I.rotation = "NUIT";
+
+R3:
+	SELECT S.nom, S.batiment, E.prenom, E.nom, D.specialite 
+	FROM service S, employe E, docteur D 
+	WHERE S.directeur = E.numero AND D.numero = E.numero;
+
+R4:
+	SELECT H.no_chambre, H.lit, S.nom, M.prenom, M.nom, M.mutuelle 
+	FROM hospitalisation H, service S, malade M 
+	WHERE H.no_malade=M.numero AND H.code_service=S.code AND M.mutuelle LIKE "MN%" AND S.batiment = 'B' ;
+
+R5:
+	SELECT S.code, avg(salaire) AS moyenne_des_salaires FROM service S, infirmier I
+
+
