@@ -19,6 +19,45 @@ R4:
 	WHERE H.no_malade=M.numero AND H.code_service=S.code AND M.mutuelle LIKE "MN%" AND S.batiment = 'B' ;
 
 R5:
-	SELECT S.code, avg(salaire) AS moyenne_des_salaires FROM service S, infirmier I
+	SELECT code_service, avg(salaire) AS moyenne_des_salaires 
+	FROM infirmier I
+	GROUP BY I.code_service;
 
 
+R6:
+	SELECT C.code_service, avg(nb_lits) AS nb_moyen_de_lits
+	FROM chambre C, service S
+	WHERE S.batiment = 'A' AND C.code_service = S.code
+	GROUP BY C.code_service;
+
+
+R7:
+	SELECT M.nom, M.prenom, COUNT(DISTINCT D.numero) AS nb_soignants, COUNT(DISTINCT D.specialite) AS nb_specialites	   
+	FROM malade M, soigne S, docteur D 
+	WHERE S.no_malade = M.numero AND S.no_docteur = D.numero 
+	GROUP BY M.nom, M.prenom
+	HAVING COUNT(DISTINCT D.numero) > 3;
+	
+
+
+
+
+R8:
+	SELECT
+	FROM (SELECT code_service, COUNT(*) AS nb
+		FROM infirmier 
+		GROUP BY code_service) tabInf,
+		(SELECT code_service, COUNT(*) AS nb
+		FROM hospitalisation
+		GROUP BY code_service) tabHos,
+		service S
+	WHERE tabInf.code_service = S.code AND tabHos.code_service = S.code
+
+
+R9:
+	SELECT
+	FROM docteur D, malade M, soigne S
+	WHERE D.numero = S.no_docteur AND M.numero = S.no_malade
+					AND exists(SELECT *
+						FROM hospitalisation H
+						WHERE H.no_malade = M.numero)

@@ -1,0 +1,20 @@
+//====================
+// 
+//====================
+SELECT J.nom
+FROM rencontres R, Joueurs J
+WHERE (R.visiteur = J.equipe AND R.butv <> 0)
+		OR (R.local = J.equipe AND R.butl <> 0);
+
+
+//=======================
+// cb de but mis par
+// l'équipe au cours du
+// championnat
+//=======================
+
+SELECT R.local, SUM(R.butl)+SUM(R2.butv)
+FROM Rencontres R, (SELECT visiteur, butv
+					FROM Rencontres) R2
+WHERE R.local = R2.visiteur
+GROUP BY R.local;
