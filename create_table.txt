@@ -1,0 +1,19 @@
+CREATE TABLE Joueurs (
+nom VARCHAR(30) NOT NULL,
+prenom VARCHAR(30) NOT NULL,
+age INT(3) NOT NULL,
+nationalite VARCHAR(30) NOT NULL,
+PRIMARY KEY (nom)
+); 
+
+
+
+
+
+CREATE TABLE `user`.`Sponsor` ( `nom` VARCHAR(30) NOT NULL AUTO_INCREMENT ,
+ `lieutournoi` VARCHAR(40) NOT NULL AUTO_INCREMENT ,
+  `annee` INT(5) NOT NULL AUTO_INCREMENT ,
+   `adresse` VARCHAR(40) NOT NULL ,
+    `montant` INT(7) NOT NULL ,
+     PRIMARY KEY (`nom`, `lieutournoi`, `annee`))
+     ENGINE = InnoDB;
